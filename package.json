@@ -1,0 +1,112 @@
+{
+  "name": "table-editor",
+  "version": "0.1.4",
+  "private": true,
+  "main": "./public/electron.js",
+  "homepage": "./",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "babel-plugin-macros": "^3.1.0",
+    "child_process": "^1.0.2",
+    "core-js": "^3.25.2",
+    "electron-is-dev": "^2.0.0",
+    "electron-root-path": "^1.1.0",
+    "electron-router-dom": "^1.0.5",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^5.3.0",
+    "execa": "^6.1.0",
+    "nanoid": "^4.0.0",
+    "node-cmd": "^5.0.0",
+    "path-browserify": "^1.0.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "react-switch": "^7.0.0",
+    "react-virtualized": "^9.22.3",
+    "sweetalert2": "^11.7.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "tailwind": "npx tailwindcss -i ./src/assets/input.css -o ./src/assets/output.css --watch",
+    "release": "yarn build&&yarn electron-builder build --win",
+    "pub:win": "yarn build && electron-builder build --win --ia32 --publish=always",
+    "electron": "wait-on tcp:3000 && electron .",
+    "dev": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn:electron\" \"yarn tailwind\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "build": {
+    "appId": "com.editor.table",
+    "productName": "Table Editor",
+    "directories": {
+      "buildResources": "public"
+    },
+    "extraFiles": [
+      {
+        "from": "./tables.json",
+        "to": "."
+      },
+      {
+        "from": "./config.json",
+        "to": "."
+      },
+      {
+        "from": "./icon",
+        "to": "./icon"
+      },
+      {
+        "from": "./script",
+        "to": "./script"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "files": [
+      "./build/**/*",
+      "*.js",
+      "*.css"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "12.0.0",
+    "electron-builder": "^23.0.3",
+    "tailwindcss": "^3.0.24",
+    "wait-on": "^6.0.1"
+  }
+}
